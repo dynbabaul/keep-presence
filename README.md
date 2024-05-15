@@ -35,8 +35,6 @@ python3 src/keep-presence.py
 
 -p PIXELS, --pixels PIXELS        Set how many pixels the mouse should move. Default 1.
 
--c, --circular                    Move mouse in a circle. Default move diagonally.
-
 -m MODE, --mode MODE              Available options: keyboard, mouse, both (mouse & keyboard) and scroll. 
                                   Default is mouse. 
                                   This is the action that will be executed when the user is idle. 
