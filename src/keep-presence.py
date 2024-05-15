@@ -17,7 +17,6 @@ SCROLL_ACTION = False
 PRESS_SHIFT_KEY = False
 RANDOM_MODE = False
 PIXELS_TO_MOVE = 1
-MOUSE_DIRECTION_DELTA = 0
 RAND_INTERVAL_START = 0
 RAND_INTERVAL_STOP = 0
 TIMEOUT = 0
@@ -30,7 +29,7 @@ lastSavePosition = (0, 0)
 
 def define_custom_seconds():
     global move_mouse_every_seconds, PIXELS_TO_MOVE, PRESS_SHIFT_KEY, MOVE_MOUSE, SCROLL_ACTION, \
-        MOUSE_DIRECTION_DELTA, RANDOM_MODE, RAND_INTERVAL_START, RAND_INTERVAL_STOP, TIMEOUT, TIMEOUT_MESSAGE
+        RANDOM_MODE, RAND_INTERVAL_START, RAND_INTERVAL_STOP, TIMEOUT, TIMEOUT_MESSAGE
 
     parser = argparse.ArgumentParser(
         description="This program moves the mouse or press a key when it detects that you are away. "
@@ -44,10 +43,6 @@ def define_custom_seconds():
     parser.add_argument(
         "-p", "--pixels", type=int,
         help="Set how many pixels the mouse should move. Default 1.")
-
-    parser.add_argument(
-        "-c", "--circular", action='store_true',
-        help="Move mouse in a circle. Default move diagonally.")
 
     parser.add_argument(
         "-m", "--mode",
@@ -94,9 +89,6 @@ def define_custom_seconds():
     if args.pixels:
         PIXELS_TO_MOVE = int(args.pixels)
 
-    if args.circular:
-        MOUSE_DIRECTION_DELTA = 1
-
     if random_seconds_interval:
         RAND_INTERVAL_START = int(random_seconds_interval[0])
         RAND_INTERVAL_STOP = int(random_seconds_interval[1])
@@ -122,8 +114,7 @@ def define_custom_seconds():
 
     if is_mouse_enabled:
         MOVE_MOUSE = True
-        print(get_now_timestamp(), "Mouse is enabled, moving", PIXELS_TO_MOVE, 'pixels',
-              '(circularly)' if MOUSE_DIRECTION_DELTA == 1 else '')
+        print(get_now_timestamp(), "Mouse is enabled, moving", PIXELS_TO_MOVE, 'pixels')
 
     if random_seconds_interval:
         RANDOM_MODE = True
@@ -149,7 +140,7 @@ def move_mouse():
 
     new_x = currentPosition[0] + delta_x
     new_y = currentPosition[1] + delta_y
-    mouse_direction = (mouse_direction + MOUSE_DIRECTION_DELTA) % 4
+    #mouse_direction = (mouse_direction) % 4
 
     old_position = mouse.position
     new_position = (new_x, new_y)
